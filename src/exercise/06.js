@@ -1,11 +1,12 @@
 // Basic Forms
 // http://localhost:3000/isolated/exercise/06.js
-// 1. 💯 using refs
+// 2. 💯 Validate lower-case
 
 import * as React from 'react'
 
 function UsernameForm({onSubmitUsername}) {
   const usernameInputRef = React.useRef()
+  const [error, setError] = React.useState(null)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -13,13 +14,29 @@ function UsernameForm({onSubmitUsername}) {
     onSubmitUsername(value)
   }
 
+  const handleChange = e => {
+    const value = e.target.value
+    const isValid = value === value.toLowerCase()
+    setError(isValid ? null : 'Username must be lower case')
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="usernameInput">Username:</label>
-        <input ref={usernameInputRef} id="usernameInput" type="text" />
+        <input
+          ref={usernameInputRef}
+          id="usernameInput"
+          type="text"
+          onChange={handleChange}
+        />
       </div>
-      <button type="submit">Submit</button>
+      <div style={{color: 'red'}} role="alert">
+        {error}
+      </div>
+      <button type="submit" disabled={!!error}>
+        Submit
+      </button>
     </form>
   )
 }
