@@ -1,23 +1,21 @@
 // Basic Forms
 // http://localhost:3000/isolated/exercise/06.js
-// 2. 💯 Validate lower-case
+// 3. 💯 Control the input value
 
 import * as React from 'react'
 
 function UsernameForm({onSubmitUsername}) {
   const usernameInputRef = React.useRef()
-  const [error, setError] = React.useState(null)
+  const [username, setUsername] = React.useState('')
 
   const handleSubmit = e => {
     e.preventDefault()
-    const value = usernameInputRef.current.value
-    onSubmitUsername(value)
+    onSubmitUsername(username)
   }
 
   const handleChange = e => {
-    const value = e.target.value
-    const isValid = value === value.toLowerCase()
-    setError(isValid ? null : 'Username must be lower case')
+    const {value} = e.target
+    setUsername(value.toLowerCase())
   }
 
   return (
@@ -25,18 +23,14 @@ function UsernameForm({onSubmitUsername}) {
       <div>
         <label htmlFor="usernameInput">Username:</label>
         <input
+          value={username}
           ref={usernameInputRef}
           id="usernameInput"
           type="text"
           onChange={handleChange}
         />
       </div>
-      <div style={{color: 'red'}} role="alert">
-        {error}
-      </div>
-      <button type="submit" disabled={!!error}>
-        Submit
-      </button>
+      <button type="submit">Submit</button>
     </form>
   )
 }
