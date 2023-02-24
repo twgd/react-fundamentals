@@ -1,6 +1,6 @@
 <!-- Creating custom components -->
 <!-- http://localhost:3000/isolated/exercise/04.html -->
-<!-- 4. 💯 Use the prop-types package -->
+<!-- 5. 💯 using React Fragments -->
 
 <body>
   <div id="root"></div>
@@ -21,10 +21,10 @@
     }
 
     const element = (
-      <div className="container">
+      <>
         <Message greeting="Hello" subject="World"></Message>
         <Message greeting="Goodbye" subject="World"></Message>
-      </div>
+      </>
     )
 
     ReactDOM.createRoot(document.getElementById('root')).render(element)
